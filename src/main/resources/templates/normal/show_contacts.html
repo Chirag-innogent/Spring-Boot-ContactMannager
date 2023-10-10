@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+	<section>
+		<div class="card1 mt-3 ml-3">
+			<div class="card-body">
+				<table class="table">
+					<thead class="thead-light">
+						<tr>
+							<th scope="col">Id</th>
+							<th scope="col">Name(NickName)</th>
+							<th scope="col">Email</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="contact :${contacts}">
+							<th scope="row" th:text="${'SCM2023'+contact.cid}"></th>
+							<td >
+								<img src="" class="my_profile_pic" th:src="@{'/images/'+${contact.image}}" alt="" /> 
+								<span th:text="${contact.name+'('+contact.secondName+')'}"></span>
+							</td>
+							<td ><a href="" th:href="@{'/user/'+${contact.cid}+'/contact'}"> <span th:text="${contact.email}"></span> </a></td>
+							<td th:text="${contact.phone}"></td>
+							<td><a href="#" class="btn btn-danger" th:onclick="|deleteContact(${contact.cid})|" >Delete</a>
+								<form th:action="@{'/user/open-contact/'+${contact.cid}}" method="post">
+								<button type="submit" class="btn btn-primary">Update</button></td> 
+								</form>
+						</tr>
+
+					</tbody>
+				</table>
+
+				<nav aria-label="Page navigation example " class="text-align-center">
+					<ul class="pagination">
+						<li class="page-item"><a class="page-link" href="#" th:if="${currentPage>0}" th:href="@{'/user/show-contacts/'+${currentPage-1}}"  >Previous</a></li>
+						<li class="page-item" th:classappend="${currentPage==i-1?'active':''}" th:each="i:${#numbers.sequence(1,totalPages)}" ><a class="page-link" href="#" th:href="@{'/user/show-contacts/'+${i-1}}" ><span th:text="${i }"></span></a></li>
+						<li class="page-item"><a class="page-link" href="#" th:if="${currentPage<totalPages-1}" th:href="@{'/user/show-contacts/'+${currentPage+1}}"  >Next</a></li>
+					</ul>
+				</nav>
+			</div>
+		</div>
+
+	</section>
+</body>
+</html>

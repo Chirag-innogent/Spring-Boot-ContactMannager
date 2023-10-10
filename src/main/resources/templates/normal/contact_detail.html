@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="${title}"></title>
+</head>
+<body>
+	<section>
+		<div class="card1 mr-3 ml-3">
+			<div class="card-body" th:if="${contact}">
+				<div class="container text-center">
+					<img src="" style="height: 200px; width: 200px;"
+						class="my_profile_pic " th:src="@{'/images/'+${contact.image}}"
+						alt="" />
+					<h3 class="card-title mt-3">
+						<span th:text="${contact.name.toUpperCase}"></span>( <span
+							th:text="${contact.secondName}"></span> )
+					</h3>
+					<table class="table">
+						<tbody>
+							<tr>
+								<td>Id</td>
+								<td th:text="${contact.cid}"></td>
+							</tr>
+							<tr>
+								<td>Email</td>
+								<td th:text="${contact.email}"></td>
+							</tr>
+							<tr>
+								<td>Phone No.</td>
+								<td th:text="${contact.phone}"></td>
+							</tr>
+							<tr>
+								<td>Work</td>
+								<td th:text="${contact.work}"></td>
+							</tr>
+						</tbody>
+					</table>
+					<hr />
+					<div class="description">
+						<th:block th:text="${contact.description}"></th:block>
+					</div>
+					<hr />
+					<td><a href="#" class="btn btn-danger" th:onclick="|deleteContact(${contact.cid})|" >Delete</a>
+								<button class="btn btn-primary">Update</button></td>
+				</div>
+			</div>
+		</div>
+			<h1 th:unless="${contact}" class="text-center bg-danger text-light" >You have no authorization to access this contact....</h1>
+	</section>
+</body>
+</html>
